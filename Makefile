@@ -1,5 +1,6 @@
-IMAGE_NAME=ez123/web-php-nginx
+IMAGE_NAME=ez123/web-php-nginx-rh
 TAG_NAME=latest
+#TAG_NAME=rh-alpine
 
 THIS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
