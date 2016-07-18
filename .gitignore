@@ -1,0 +1,10 @@
+/vendor/
+**/Dockerfile
+**/.dockerignore
+**/.sample/
+**/.DS_Store/
+**/*.*~
+
+# it seems docker compose doesn't use the same syntax as CLI docker
+# https://github.com/docker/docker-py/issues/1117
+*~
