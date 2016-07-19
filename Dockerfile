@@ -43,8 +43,8 @@ ADD  ./src/mkimage/5-clean.sh ./
 ADD  ./src/mkimage/1-rh-pkg.sh ./
 RUN bash         ./1-rh-pkg.sh
 
-# ADD  ./src/mkimage/2-rh-php.sh ./
-# RUN bash         ./2-th-php.sh
+ADD  ./src/mkimage/2-rh-php.sh ./
+RUN bash         ./2-rh-php.sh
 
 # ADD  ./src/mkimage/3-rh-nginx.sh ./
 # RUN bash         ./3-rh-nginx.sh

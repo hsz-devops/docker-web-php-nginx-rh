@@ -45,6 +45,7 @@ apk --update add \
 # #RUN pecl install memcached && \
 # #    docker-php-ext-enable memcached
 
+# --------------------------------------------------
 PHP_WWWROOT=/opt/src/nginx/000/wwwroot/___
 mkdir -p "${PHP_WWWROOT}"
 cat << EOFxOEF > "${PHP_WWWROOT}/phpinfo.php"
@@ -54,6 +55,33 @@ cat << EOFxOEF > "${PHP_WWWROOT}/phpinfo.php"
 phpinfo();
 
 EOFxOEF
+
+# --------------------------------------------------
+# change location of log files
+PHP_ERROR_LOG_DIR="${PHP_ERROR_LOG_DIR:-/var/log/php}"
+PHP_FPM_ERROR_LOG="${PHP_ERROR_LOG_DIR}/php-fpm.log"
+#PHP_FPM_ERROR_LOG=syslog
+PHP_INI_ERROR_LOG="${PHP_ERROR_LOG_DIR}/php-errors.log"
+
+sed \
+    -i~ \
+    -e "s|^[ \t;#]*error_log[ \t]*=[ \t]*.*|error_log = ${PHP_FPM_ERROR_LOG}'|g" \
+    \
+    "/etc/php5/php-fpm.conf"
+
+sed \
+    -i~ \
+    -e "s|^[ \t;#]*log_errors[ \t]*=[ \t]*.*|log_errors = On|g" \
+    -e "s|^[ \t;#]*display_errors[ \t]*=[ \t]*.*|display_errors = Off|g" \
+    -e "s|^[ \t;#]*display_startup_errors[ \t]*=[ \t]*.*|display_startup_errors = Off|g" \
+    -e "s|^[ \t;#]*error_log[ \t]*=[ \t]*.*|error_log = ${PHP_INI_ERROR_LOG}|g" \
+    \
+    "/etc/php5/php.ini"
+
+#diff /etc/php5/php-fpm.conf{,~}
+#diff /etc/php5/php.ini{,~}
+
+mkdir -p "${PHP_ERROR_LOG_DIR}"
 
 echo ########################################################################
 php -i
