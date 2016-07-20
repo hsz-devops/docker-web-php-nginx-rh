@@ -1,12 +1,13 @@
+# v1.6.1    2016-06-20     webmaster@highskillz.com
+
 IMAGE_NAME=ez123/web-php-nginx-rh
-TAG_NAME=latest
-#TAG_NAME=rh-alpine
+TAG_NAME=rh-alpine
 
 THIS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
 
-#BUILD_OPTS=--pull --force-rm
-BUILD_OPTS=--force-rm
+BUILD_OPTS=--pull --force-rm
+#BUILD_OPTS=--force-rm
 
 # --------------------------------------------------------------------------
 default: build
@@ -22,6 +23,7 @@ _build_image: _check-env-base
 	docker build \
 		$(_DOCKER_BUILD_OPTS) \
 			-t $(IMAGE_NAME):$(TAG_NAME) \
+			-t $(IMAGE_NAME):latest      \
 		.
 
 # --------------------------------------------------------------------------
