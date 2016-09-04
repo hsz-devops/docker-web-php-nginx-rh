@@ -4,7 +4,7 @@ IMAGE_NAME=ez123/web-php-nginx-rh
 TAG_NAME=rh-alpine
 
 THIS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-TIMESTAMP=$(shell date +"%Y%m%d_%H%M%S")
+TIMESTAMP=$(shell date -u +"%Y%m%d_%H%M%S%Z")
 
 BUILD_OPTS=--pull --force-rm
 #BUILD_OPTS=--force-rm
